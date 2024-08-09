@@ -19,7 +19,10 @@ stages:
     - lpkg --unlock
     - apt-get update
   # Put your custom actions behind this comment
-
+  - name: custom-modules
+    type: includes
+    commands:
+    - modules/neovim.yml
 
   # Put your custom actions before this comment
   - name: set-image-name-abroot
