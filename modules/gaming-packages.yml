@@ -1,0 +1,18 @@
+name: install-gaming-packages
+type: apt
+source:
+  packages:
+    - steam
+    - lutris
+    - wine
+    - winetricks
+    - mangohud
+    - gamemode
+    - discord
+
+- name: setup-gaming-tools
+  type: shell
+  commands:
+    - flatpak install -y flathub com.valvesoftware.Steam
+    - flatpak install -y flathub net.lutris.Lutris
+    - flatpak install -y flathub com.discordapp.Discord
