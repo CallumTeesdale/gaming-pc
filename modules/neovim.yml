@@ -1,9 +1,12 @@
-name: install-astronvim-arch
+name: install-astronvim-robust
 type: shell
 commands:
-  # Update system and install dependencies
-  - pacman -Syu --noconfirm
-  - pacman -S --noconfirm neovim curl git unzip xclip ripgrep go python python-pip nodejs npm lazygit
+  # Update and install basic dependencies
+  - apt-get update
+  - apt-get install -y software-properties-common
+  - add-apt-repository ppa:neovim-ppa/unstable
+  - apt-get update
+  - apt-get install -y neovim
 
   # Install bottom
   - curl -sL https://raw.githubusercontent.com/ClementTsang/bottom/master/assets/download.sh | sh
@@ -11,11 +14,6 @@ commands:
 
   # Install tree-sitter CLI
   - npm install -g tree-sitter-cli
-
-  # Install JetBrains Mono Nerd Font
-  - mkdir -p /usr/local/share/fonts/
-  - curl -fLo "/usr/local/share/fonts/JetBrains Mono Regular Nerd Font Complete.ttf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/JetBrainsMono/Ligatures/Regular/complete/JetBrains%20Mono%20Regular%20Nerd%20Font%20Complete.ttf
-  - fc-cache -f -v
 
   # Backup existing Neovim config (if any)
   - mv ~/.config/nvim ~/.config/nvim.bak 2>/dev/null || true
@@ -31,4 +29,5 @@ commands:
   - nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
   # Cleanup
-  - pacman -Scc --noconfirm
+  - apt-get clean
+  - rm -rf /var/lib/apt/lists/*
