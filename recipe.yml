@@ -1,5 +1,5 @@
 name: Custom Vanilla Gaming PC
-id: gaming-pc
+id: gaming-pc# Replace this ID with your image ID
 stages:
 - id: build
   base: ghcr.io/vanilla-os/nvidia:main
