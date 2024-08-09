@@ -22,7 +22,7 @@ stages:
 
   - name: custom-modules
     type: includes
-    commands:
+    includes:
       - modules/rust.yml
 
   # Put your custom actions before this comment
