@@ -14,7 +14,7 @@ commands:
 
   # Install Nerd Font 
   - mkdir -p /usr/local/share/fonts/
-  - curl -fLo "/usr/local/share/fonts/JetBrains Mono Regular Nerd Font Complete.ttf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/JetBrainsMono/Ligatures/Regular/complete/JetBrains%20Mono%20Regular%20Nerd%20Font%20Complete.ttf
+  - /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/install_manual.sh)"
   - fc-cache -f -v
 
   # Backup existing Neovim config
@@ -26,6 +26,7 @@ commands:
   # Clone AstroNvim template
   - git clone --depth 1 https://github.com/AstroNvim/template ~/.config/nvim
   - rm -rf ~/.config/nvim/.git
+
 
   # Install AstroNvim plugins
   - nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
