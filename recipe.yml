@@ -25,7 +25,7 @@ stages:
     includes:
       - modules/common-utils.yml
       - modules/rust.yml
-      - 
+      - modules/neovim.yml
 
   # Put your custom actions before this comment
   - name: set-image-name-abroot
