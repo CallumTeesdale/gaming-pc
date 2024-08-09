@@ -1,5 +1,5 @@
 name: Custom Vanilla Gaming PC
-id: gaming-pc# Replace this ID with your image ID
+id: gaming-pc # Replace this ID with your image ID
 stages:
 - id: build
   base: ghcr.io/vanilla-os/nvidia:main
@@ -7,8 +7,8 @@ stages:
   labels:
     maintainer: Callum Teesdale
   args:
-    DEBIAN_FRONTEND: noninteractive
-  
+    DEBIAN_FRONTEND: noninteractive # Set the image environment as non-interactive
+  # Commands to run first before building the modules
   runs:
     commands:
       - echo 'APT::Install-Recommends "1";' > /etc/apt/apt.conf.d/01norecommends
@@ -18,26 +18,19 @@ stages:
     commands:
     - lpkg --unlock
     - apt-get update
-
-  - name: custom-modules
-    type: includes
-    includes:
-      - modules/steam.yaml
-      - modules/rust.yaml
-      - modules/neovim.yaml
-
+  # Put your custom actions behind this comment
+  
+  # Put your custom actions before this comment
   - name: set-image-name-abroot
     type: includes
     includes:
       - modules/80-set-image-abroot-config.yml
-
   - name: cleanup
     type: shell
     commands:
     - apt-get autoremove -y
     - apt-get clean
     - lpkg --lock
-
   - name: fsguard
     type: fsguard
     CustomFsGuard: false
@@ -51,7 +44,6 @@ stages:
           - rm -rf /FsGuard 
           - rm -f ./minisign.pub ./minisign.key 
           - chmod +x /usr/sbin/init
-
   - name: cleanup2
     type: shell
     commands:
