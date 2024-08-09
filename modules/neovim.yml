@@ -1,6 +1,35 @@
-name: install-neovim-astronvim
+name: install-astronvim
 type: shell
 commands:
-  - apt-get install -y neovim
-  - git clone --depth 1 https://github.com/AstroNvim/AstroNvim ~/.config/nvim
-  - nvim --headless -c 'quitall'
+  # Install dependencies
+  - apt-get update
+  - apt-get install -y neovim curl git unzip xclip ripgrep lazygit golang-go python3 python3-pip nodejs npm
+
+  # Install bottom
+  - curl -sL https://raw.githubusercontent.com/ClementTsang/bottom/master/assets/download.sh | sh
+  - mv ./bottom /usr/local/bin/
+
+  # Install tree-sitter CLI
+  - npm install -g tree-sitter-cli
+
+  # Install Nerd Font 
+  - mkdir -p /usr/local/share/fonts/
+  - curl -fLo "/usr/local/share/fonts/JetBrains Mono Regular Nerd Font Complete.ttf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/JetBrainsMono/Ligatures/Regular/complete/JetBrains%20Mono%20Regular%20Nerd%20Font%20Complete.ttf
+  - fc-cache -f -v
+
+  # Backup existing Neovim config
+  - mv ~/.config/nvim ~/.config/nvim.bak || true
+  - mv ~/.local/share/nvim ~/.local/share/nvim.bak || true
+  - mv ~/.local/state/nvim ~/.local/state/nvim.bak || true
+  - mv ~/.cache/nvim ~/.cache/nvim.bak || true
+
+  # Clone AstroNvim template
+  - git clone --depth 1 https://github.com/AstroNvim/template ~/.config/nvim
+  - rm -rf ~/.config/nvim/.git
+
+  # Install AstroNvim plugins
+  - nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+
+  # Cleanup
+  - apt-get clean
+  - rm -rf /var/lib/apt/lists/*
