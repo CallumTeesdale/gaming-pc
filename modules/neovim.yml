@@ -1,0 +1,33 @@
+name: install-astronvim-robust
+type: shell
+commands:
+  # Update and install basic dependencies
+  - apt-get update
+  - apt-get install -y software-properties-common
+  - add-apt-repository ppa:neovim-ppa/unstable
+  - apt-get update
+  - apt-get install -y neovim
+
+  # Install bottom
+  - curl -sL https://raw.githubusercontent.com/ClementTsang/bottom/master/assets/download.sh | sh
+  - mv ./bottom /usr/local/bin/
+
+  # Install tree-sitter CLI
+  - npm install -g tree-sitter-cli
+
+  # Backup existing Neovim config (if any)
+  - mv ~/.config/nvim ~/.config/nvim.bak 2>/dev/null || true
+  - mv ~/.local/share/nvim ~/.local/share/nvim.bak 2>/dev/null || true
+  - mv ~/.local/state/nvim ~/.local/state/nvim.bak 2>/dev/null || true
+  - mv ~/.cache/nvim ~/.cache/nvim.bak 2>/dev/null || true
+
+  # Clone AstroNvim template
+  - git clone --depth 1 https://github.com/AstroNvim/template ~/.config/nvim
+  - rm -rf ~/.config/nvim/.git
+
+  # Install AstroNvim plugins
+  - nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+
+  # Cleanup
+  - apt-get clean
+  - rm -rf /var/lib/apt/lists/*

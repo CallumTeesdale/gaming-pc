@@ -1,0 +1,9 @@
+name: install-utils
+type: apt
+source:
+  packages:
+    - curl
+    - git
+    - eza
+    - ripgrep
+    - npm

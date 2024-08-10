@@ -1,0 +1,11 @@
+name: install-gaming-packages
+type: apt
+source:
+  packages:
+    - steam
+    - lutris
+    - wine
+    - winetricks
+    - mangohud
+    - gamemode
+    - discord
