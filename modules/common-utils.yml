@@ -4,7 +4,6 @@ source:
   packages:
     - curl
     - git
-    - exa
+    - eza
     - ripgrep
     - npm
-    - 
